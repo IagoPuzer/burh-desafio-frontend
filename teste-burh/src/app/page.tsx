@@ -9,6 +9,7 @@ interface Note {
   id: number;
   title: string;
   description: string;
+  done: boolean;
 }
 
 export default function Home() {
@@ -86,6 +87,36 @@ export default function Home() {
     }
   };
 
+  const handleToggleDone = async (noteId: number) => {
+    try {
+      const noteToUpdate = notes.find((note) => note.id === noteId);
+      if (!noteToUpdate) return;
+
+      const updatedNote = { ...noteToUpdate, done: !noteToUpdate.done };
+
+      const response = await fetch(`./api/notes/${noteId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedNote),
+      });
+
+      if (response.ok) {
+        const updatedNoteFromServer: Note = await response.json();
+        setNotes(
+          notes.map((note) =>
+            note.id === updatedNoteFromServer.id ? updatedNoteFromServer : note
+          )
+        );
+      } else {
+        console.error("Failed to update note");
+      }
+    } catch (error) {
+      console.error("Error updating note:", error);
+    }
+  };
+
   const handleOpenModalCreateNote = () => {
     setIsModalOpen(true);
   };
@@ -120,6 +151,7 @@ export default function Home() {
                   note={note}
                   onDelete={handleDeleteNote}
                   onUpdate={handleEditNote}
+                  onToggleDone={handleToggleDone}
                 />
               ))}
             </div>
