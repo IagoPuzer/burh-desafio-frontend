@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center"> Desafio Burh <h1>
 
-## Getting Started
+![Badge Finalizado](http://img.shields.io/static/v1?label=STATUS&message=FINALIZADO&color=GREEN&style=for-the-badge)
 
-First, run the development server:
+<h2>Descrição do projeto:<h2>
+<p>Projeto desenvolvido para a realização do teste prático para vaga de Desenvolvedor front-end da empresa Burh.</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<p align="center">
+ <img src="">
+</p>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## :hammer: Funcionalidades do projeto
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `Funcionalidade 1`:
+    <p>Criação de um banco SQLite com Prisma e criação de uma API dentro do propio Next para que seja feito o consumo das informações do banco<p>
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- `Funcionalidade 2`:
+    <p>Criação de um Task com campos de titulo, descrição e estado (resolvido ou não resolvido) e criação de uma API dentro do propio Next para que seja feito o consumo das informações do banco<p>
 
-## Learn More
+## :gear: Como rodar o projeto
 
-To learn more about Next.js, take a look at the following resources:
+**Pré-requisitos:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Node.js instalado
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+**Passos:**
 
-## Deploy on Vercel
+1. Clone o repositório para a sua máquina:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   git clone git@github.com:IagoPuzer/TesteQuaVi.git
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+   ```
+
+2. Acesse o diretório do projeto:
+
+   ```bash
+   cd nome-do-projeto
+   ```
+
+3. Instale as dependências:
+
+   ```bash
+   npm install
+   ```
+
+4. Comando para ver o banco SQLite:
+
+   ```bash
+   npx prisma studio
+   ```
+
+4.Execute o projeto:
+
+      ```bash
+    npm run dev
+    ```
+
+## 🛠️ Tecnologias utilizadas
+
+- `NextJS` - version: 14.2.2
+- `TypeScript` - version: ^5
+- `Prisma` - version: 5.12.1
+- `React` - version: 18
+- `Tailwind CSS` - version: 3.4.3
+- `NodeJS` - version: 20.3.1
+- `npm` - version: 9.6.7
