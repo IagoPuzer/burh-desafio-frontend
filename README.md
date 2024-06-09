@@ -1,49 +1,73 @@
-# BURH: Teste prático para Frontend
+<h1 align="center"> Desafio Burh <h1>
 
-Este será o teste usado para avaliar os candidatos a vaga de Frontend Pleno da [Burh](http://burh.com.br). Se você estiver participando de um processo seletivo para nossa equipe, certamente em algum momento receberá este link, mas caso você tenha chego aqui "por acaso", sinta-se convidado a desenvolver nosso teste e enviar uma mensagem para nós no e-mail `skuth@burh.com.br`. 
+![Badge Finalizado](http://img.shields.io/static/v1?label=STATUS&message=FINALIZADO&color=GREEN&style=for-the-badge)
 
-## Instruções
+<h2>Descrição do projeto:<h2>
+<p>Projeto desenvolvido para a realização do teste prático para vaga de Desenvolvedor front-end da empresa Burh.</p>
 
-Você deverá criar um `fork` deste projeto, e desenvolver em cima do seu fork. Use o *README* principal do seu repositório para nos contar como foi resolver seu teste, as decisões tomadas, como você organizou e separou seu código, e <b>principalmente</b> as instruções de como rodar seu projeto e o <b>seu link do perfil do Burh</b>, sem ele não conseguiremos te encontrar para passar o feedback.
+## 📌 Por que a escolha do NextJs?
 
-Lembre-se que este é um teste técnico e não um concurso público, portanto, não existe apenas uma resposta correta. Mostre que você é bom e nos impressione, mas não esqueça do objetivo do projeto. 
+<p> O NextJs é um framework de desenvolvimento web que permite criar aplicações web rápidas e fáceis de serem mantidas. Ele é baseado em React e possui uma sintaxe de componentes simples e intuitiva. </p>
 
-## O desafio
+<p> O desafio proposto se dava na criação de um CRUD usando a API crudcrud. A ideia de utilizar o NextJs e criar minha própria API para que eu possa consumir as informações do banco de dados se deu por conta da limitação do número de requisições que a API crudcrud permite dentro de um período de tempo. </p>
 
-Você irá construir um crud sobre o que desejar, usando as [APIs do crducrud](https://crudcrud.com/) . O crud deverá ter campos dos tipos texto, numérico, data e booleano.
+## :hammer: Funcionalidades do projeto
 
-A interface fica por sua conta, use a criatividade, desenvolva algo bonito e usual.
+- `Funcionalidade 1`:
+    <p>Criação de um banco SQLite com Prisma e criação de uma API dentro do propio Next para que seja feito o consumo das informações do banco<p>
 
-### O que nós esperamos do seu teste
+- `Funcionalidade 2`:
+    <p>Criação de tasks com campos de titulo, descrição e estado (resolvido ou não resolvido).<p>
 
-* Ver na solução a utilização do framework VueJS ou ReactJS.
-* Também ver a utilização de dependency managers (npm, webpack)
-* Um HTML escrito da maneira mais semântica possível (HTML5/5.1)
-* CSS3/4 - Com um pré processador de CSS (a escolha fica a seu critério, mas por aqui utilizamos SASS) ou Styled Component
-* Mobile first e layout responsivo
+## :gear: Como rodar o projeto
 
-### O que nós ficaríamos felizes de ver em seu teste
+**Pré-requisitos:**
 
-* Validação de campos e tratamento de erros
+- Node.js instalado
 
-### O que nos impressionaria
+**Passos:**
 
-* [BEM naming convention](http://getbem.com/naming/)
-* Aplicação de animações em css quando possível e tome cuidado com a performance da sua animação :)
-* Ver o código rodando live (Bucket estático S3, Firebase Hosting ou qualquer outro host)
+1. Clone o repositório para a sua máquina:
 
-### O que nós não gostaríamos
+   ```bash
+   git clone git@github.com:IagoPuzer/burh-desafio-frontend.git
 
-* Descobrir que não foi você quem fez seu teste
-* Ver commits grandes, sem muita explicação nas mensagens em seu repositório 
+   ```
 
-## O que avaliaremos em seu teste
+2. Acesse o diretório do projeto:
 
-* Histórico de commits do git
-* As instruções de como rodar o projeto
-* Organização, semântica, estrutura, legibilidade, manutenibilidade do seu código
-* Alcance dos objetivos propostos
-* Adaptação mobile (layout responsivo)
-* Componentização e extensibilidade dos componentes
+   ```bash
+   cd burh-desafio-frontend/teste-burh
+   ```
 
-Boa sorte!
+3. Instale as dependências:
+
+   ```bash
+   npm install
+   ```
+
+4. Comando para ver o banco SQLite:
+
+   ```bash
+   npx prisma studio
+   ```
+
+4.Execute o projeto:
+
+      ```bash
+    npm run dev
+    ```
+
+## 🛠️ Tecnologias utilizadas
+
+- `NextJS` - version: 14.2.2
+- `TypeScript` - version: ^5
+- `Prisma` - version: 5.12.1
+- `React` - version: 18
+- `Tailwind CSS` - version: 3.4.3
+- `NodeJS` - version: 20.3.1
+- `npm` - version: 9.6.7
+
+## link do meu perfil no Burh
+
+[https://burh.com.br/iagopuzer](https://burh.com.br/iagopuzer)
