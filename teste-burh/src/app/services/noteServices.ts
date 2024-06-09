@@ -1,14 +1,4 @@
-export interface Note {
-  id: number;
-  title: string;
-  description: string;
-  done: boolean;
-}
-
-export interface NoteData {
-  title: string;
-  description: string;
-}
+import { Note, NoteData } from "@/app/types/Note";
 
 const API_URL = "./api/notes";
 

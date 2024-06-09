@@ -1,15 +1,11 @@
 "use client";
 import { useState } from "react";
 import { toast } from "sonner";
+import { NoteData } from "@/app/types/Note";
 
 interface Props {
   onSubmit: (data: NoteData) => void;
   onClose: () => void;
-}
-
-export interface NoteData {
-  title: string;
-  description: string;
 }
 
 export default function CreateNoteForm({
@@ -27,7 +23,7 @@ export default function CreateNoteForm({
   ) => {
     const { name, value } = e.target;
     setNewNoteData({ ...newNoteData, [name]: value });
-    if (error) setError(""); // Limpa o erro ao começar a digitar novamente
+    if (error) setError("");
   };
 
   const createNewNote = async (e: React.FormEvent<HTMLFormElement>) => {

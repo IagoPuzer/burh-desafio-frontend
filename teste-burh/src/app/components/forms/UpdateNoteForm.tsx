@@ -1,17 +1,11 @@
 import { useState } from "react";
 import { toast } from "sonner";
+import { Note } from "@/app/types/Note";
 
 interface Props {
-  onSubmit: (data: NoteData) => void;
+  onSubmit: (data: Note) => void;
   onClose: () => void;
-  initialData: NoteData;
-}
-
-export interface NoteData {
-  id: number;
-  title: string;
-  description: string;
-  done: boolean;
+  initialData: Note;
 }
 
 export default function UpdateNoteForm({
@@ -19,7 +13,7 @@ export default function UpdateNoteForm({
   onClose,
   initialData,
 }: Props): JSX.Element {
-  const [noteData, setNoteData] = useState<NoteData>(initialData);
+  const [noteData, setNoteData] = useState<Note>(initialData);
   const [error, setError] = useState<string>("");
 
   const handleChange = (

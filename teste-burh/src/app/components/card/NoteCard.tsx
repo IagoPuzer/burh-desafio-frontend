@@ -1,20 +1,14 @@
 import { useState } from "react";
 import NoteModal from "../modals/NoteModal";
-import UpdateNoteForm, { NoteData } from "../forms/UpdateNoteForm";
+import UpdateNoteForm from "../forms/UpdateNoteForm";
 import ViewNote from "../modals/ViewNote";
 import { toast } from "sonner";
-
-interface Note {
-  id: number;
-  title: string;
-  description: string;
-  done: boolean;
-}
+import { Note } from "@/app/types/Note";
 
 interface Props {
   note: Note;
   onDelete: (noteId: number) => void;
-  onUpdate: (updatedNoteData: NoteData) => void;
+  onUpdate: (updatedNoteData: Note) => void;
   onToggleDone: (noteId: number) => void;
 }
 

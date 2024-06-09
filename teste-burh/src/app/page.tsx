@@ -3,13 +3,13 @@ import { useState, useEffect } from "react";
 import NoteCard from "./components/card/NoteCard";
 import CreateNoteButton from "./components/buttons/CreateNoteButton";
 import NoteModal from "./components/modals/NoteModal";
-import CreateNoteForm, { NoteData } from "./components/forms/CreateNoteForm";
+import CreateNoteForm from "./components/forms/CreateNoteForm";
+import { NoteData, Note } from "./types/Note";
 import {
   fetchNotes,
   createNote,
   deleteNote,
   updateNote,
-  Note,
 } from "./services/noteServices";
 
 export default function Home() {
