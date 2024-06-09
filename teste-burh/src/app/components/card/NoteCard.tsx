@@ -54,19 +54,25 @@ export default function NoteCard({
       <div className="overflow-hidden rounded bg-white text-slate-500 shadow-md shadow-slate-200">
         <div className="p-6">
           <div className="flex flex-col">
-            <h3 className="mb-4 text-xl font-medium text-slate-700">
+            <h3
+              className={`mb-4 text-xl font-medium text-slate-700 ${
+                note.done ? "line-through" : ""
+              }`}
+            >
               {note.title}
             </h3>
           </div>
-          <p className="truncate">{note.description}</p>
-          <div className="flex justify-end gap-4 mt-6">
+          <p className={`truncate ${note.done ? "line-through" : ""}`}>
+            {note.description}
+          </p>
+          <div className="flex flex-col 2xl:flex-row justify-end gap-4 mt-6">
             <button
               className={`p-2 rounded-md text-black ${
-                note.done ? "bg-green-300" : "bg-green-100 hover:bg-green-300"
+                note.done ? "bg-yellow-300" : "bg-green-100 hover:bg-green-300"
               }`}
               onClick={handleToggleDoneClick}
             >
-              {note.done ? "Undone" : "Done"}
+              {note.done ? "Não resolvida" : "task resolvida"}
             </button>
             <button
               className="bg-red-200 hover:bg-red-300 p-2 rounded-md text-black"
