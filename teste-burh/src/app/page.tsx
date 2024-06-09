@@ -15,55 +15,36 @@ import {
 export default function Home() {
   const [notes, setNotes] = useState<Note[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
 
   const fetchAllNotes = async () => {
-    setLoading(true);
-    setError("");
     try {
       const data = await fetchNotes();
       setNotes(data);
     } catch (error) {
       console.error("Error fetching notes:", error);
-      setError("Failed to fetch notes.");
-    } finally {
-      setLoading(false);
     }
   };
 
   const createNewNote = async (newNoteData: Note) => {
-    setLoading(true);
-    setError("");
     try {
       const newNote = await createNote(newNoteData);
       setNotes([...notes, newNote]);
       setIsModalOpen(false);
     } catch (error) {
       console.error("Error creating note:", error);
-      setError("Failed to create new note.");
-    } finally {
-      setLoading(false);
     }
   };
 
   const handleDeleteNote = async (noteId: Note["id"]) => {
-    setLoading(true);
-    setError("");
     try {
       await deleteNote(noteId);
       setNotes(notes.filter((note) => note.id !== noteId));
     } catch (error) {
       console.error("Error deleting note:", error);
-      setError("Failed to delete note.");
-    } finally {
-      setLoading(false);
     }
   };
 
   const handleEditNote = async (updatedNoteData: Note) => {
-    setLoading(true);
-    setError("");
     try {
       const updatedNoteFromServer = await updateNote(
         updatedNoteData.id,
@@ -77,15 +58,10 @@ export default function Home() {
       setIsModalOpen(false);
     } catch (error) {
       console.error("Error updating note:", error);
-      setError("Failed to update note.");
-    } finally {
-      setLoading(false);
     }
   };
 
   const handleToggleDone = async (noteId: number) => {
-    setLoading(true);
-    setError("");
     try {
       const noteToUpdate = notes.find((note) => note.id === noteId);
       if (!noteToUpdate) return;
@@ -99,9 +75,6 @@ export default function Home() {
       );
     } catch (error) {
       console.error("Error updating note:", error);
-      setError("Failed to update note.");
-    } finally {
-      setLoading(false);
     }
   };
 
