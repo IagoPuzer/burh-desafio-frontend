@@ -4,116 +4,104 @@ import NoteCard from "./components/card/NoteCard";
 import CreateNoteButton from "./components/buttons/CreateNoteButton";
 import NoteModal from "./components/modals/NoteModal";
 import CreateNoteForm, { NoteData } from "./components/forms/CreateNoteForm";
-
-interface Note {
-  id: number;
-  title: string;
-  description: string;
-  done: boolean;
-}
+import {
+  fetchNotes,
+  createNote,
+  deleteNote,
+  updateNote,
+  Note,
+} from "./services/noteServices";
 
 export default function Home() {
   const [notes, setNotes] = useState<Note[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   const fetchAllNotes = async () => {
+    setLoading(true);
+    setError("");
     try {
-      const response = await fetch("./api/notes");
-      if (response.ok) {
-        const data: Note[] = await response.json();
-        setNotes(data);
-      } else {
-        console.error("Failed to fetch notes:", response.statusText);
-      }
+      const data = await fetchNotes();
+      setNotes(data);
     } catch (error) {
       console.error("Error fetching notes:", error);
+      setError("Failed to fetch notes.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const createNewNote = async (newNoteData: NoteData) => {
+    setLoading(true);
+    setError("");
     try {
-      const response = await fetch("./api/notes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newNoteData),
-      });
-      if (response.ok) {
-        const newNote = await response.json();
-        setNotes([...notes, newNote]);
-        setIsModalOpen(false);
-      } else {
-        console.error("Failed to create new note");
-      }
+      const newNote = await createNote(newNoteData);
+      setNotes([...notes, newNote]);
+      setIsModalOpen(false);
     } catch (error) {
       console.error("Error creating note:", error);
+      setError("Failed to create new note.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleDeleteNote = async (noteId: Note["id"]) => {
+    setLoading(true);
+    setError("");
     try {
-      await fetch(`./api/notes/${noteId}`, {
-        method: "DELETE",
-      });
+      await deleteNote(noteId);
       setNotes(notes.filter((note) => note.id !== noteId));
     } catch (error) {
       console.error("Error deleting note:", error);
+      setError("Failed to delete note.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleEditNote = async (updatedNoteData: Note) => {
+    setLoading(true);
+    setError("");
     try {
-      const response = await fetch(`./api/notes/${updatedNoteData.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedNoteData),
-      });
-      if (response.ok) {
-        const updatedNoteFromServer: Note = await response.json();
-        setNotes(
-          notes.map((note) =>
-            note.id === updatedNoteFromServer.id ? updatedNoteFromServer : note
-          )
-        );
-        setIsModalOpen(false);
-      } else {
-        console.error("Failed to update note");
-      }
+      const updatedNoteFromServer = await updateNote(
+        updatedNoteData.id,
+        updatedNoteData
+      );
+      setNotes(
+        notes.map((note) =>
+          note.id === updatedNoteFromServer.id ? updatedNoteFromServer : note
+        )
+      );
+      setIsModalOpen(false);
     } catch (error) {
       console.error("Error updating note:", error);
+      setError("Failed to update note.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleToggleDone = async (noteId: number) => {
+    setLoading(true);
+    setError("");
     try {
       const noteToUpdate = notes.find((note) => note.id === noteId);
       if (!noteToUpdate) return;
 
       const updatedNote = { ...noteToUpdate, done: !noteToUpdate.done };
-
-      const response = await fetch(`./api/notes/${noteId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedNote),
-      });
-
-      if (response.ok) {
-        const updatedNoteFromServer: Note = await response.json();
-        setNotes(
-          notes.map((note) =>
-            note.id === updatedNoteFromServer.id ? updatedNoteFromServer : note
-          )
-        );
-      } else {
-        console.error("Failed to update note");
-      }
+      const updatedNoteFromServer = await updateNote(noteId, updatedNote);
+      setNotes(
+        notes.map((note) =>
+          note.id === updatedNoteFromServer.id ? updatedNoteFromServer : note
+        )
+      );
     } catch (error) {
       console.error("Error updating note:", error);
+      setError("Failed to update note.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -133,30 +121,40 @@ export default function Home() {
     <div>
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-slate-100">Notes APP</h1>
+          <h1 className="text-3xl font-bold text-slate-100">Tasks APP</h1>
           <div className="flex gap-6">
             <CreateNoteButton onCreate={handleOpenModalCreateNote} />
           </div>
         </div>
-        <div className="">
-          {notes.length === 0 ? (
-            <p className="text-gray-500 text-3xl text-center flex justify-center">
-              Sem notas cadastradas
-            </p>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {notes.map((note) => (
-                <NoteCard
-                  key={note.id}
-                  note={note}
-                  onDelete={handleDeleteNote}
-                  onUpdate={handleEditNote}
-                  onToggleDone={handleToggleDone}
-                />
-              ))}
-            </div>
-          )}
-        </div>
+        {loading ? (
+          <p className="text-gray-500 text-3xl text-center flex justify-center">
+            Carregando...
+          </p>
+        ) : error ? (
+          <p className="text-red-500 text-3xl text-center flex justify-center">
+            {error}
+          </p>
+        ) : (
+          <div className="">
+            {notes.length === 0 ? (
+              <p className="text-gray-500 text-3xl text-center flex justify-center">
+                Sem tasks cadastradas
+              </p>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {notes.map((note) => (
+                  <NoteCard
+                    key={note.id}
+                    note={note}
+                    onDelete={handleDeleteNote}
+                    onUpdate={handleEditNote}
+                    onToggleDone={handleToggleDone}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
       <NoteModal
         isOpen={isModalOpen}
