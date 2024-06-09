@@ -126,35 +126,25 @@ export default function Home() {
             <CreateNoteButton onCreate={handleOpenModalCreateNote} />
           </div>
         </div>
-        {loading ? (
-          <p className="text-gray-500 text-3xl text-center flex justify-center">
-            Carregando...
-          </p>
-        ) : error ? (
-          <p className="text-red-500 text-3xl text-center flex justify-center">
-            {error}
-          </p>
-        ) : (
-          <div className="">
-            {notes.length === 0 ? (
-              <p className="text-gray-500 text-3xl text-center flex justify-center">
-                Sem tasks cadastradas
-              </p>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {notes.map((note) => (
-                  <NoteCard
-                    key={note.id}
-                    note={note}
-                    onDelete={handleDeleteNote}
-                    onUpdate={handleEditNote}
-                    onToggleDone={handleToggleDone}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-        )}
+        <div className="">
+          {notes.length === 0 ? (
+            <p className="text-gray-500 text-3xl text-center flex justify-center">
+              Sem tasks cadastradas
+            </p>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {notes.map((note) => (
+                <NoteCard
+                  key={note.id}
+                  note={note}
+                  onDelete={handleDeleteNote}
+                  onUpdate={handleEditNote}
+                  onToggleDone={handleToggleDone}
+                />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
       <NoteModal
         isOpen={isModalOpen}
