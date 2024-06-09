@@ -4,8 +4,3 @@ export interface Note {
   description: string;
   done: boolean;
 }
-
-export interface NoteData {
-  title: string;
-  description: string;
-}

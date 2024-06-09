@@ -1,9 +1,9 @@
 import { toast } from "sonner";
-import { NoteData } from "@/app/types/Note";
+import { Note } from "@/app/types/Note";
 import { useForm } from "react-hook-form";
 
 interface Props {
-  onSubmit: (data: NoteData) => void;
+  onSubmit: (data: Note) => void;
   onClose: () => void;
 }
 
@@ -15,9 +15,9 @@ export default function CreateNoteForm({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<NoteData>();
+  } = useForm<Note>();
 
-  const createNewNote = handleSubmit(async (formData: NoteData) => {
+  const createNewNote = handleSubmit(async (formData: Note) => {
     try {
       await onSubmit(formData);
       onClose();

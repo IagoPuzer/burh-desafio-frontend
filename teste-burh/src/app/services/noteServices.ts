@@ -1,4 +1,4 @@
-import { Note, NoteData } from "@/app/types/Note";
+import { Note } from "@/app/types/Note";
 
 const API_URL = "./api/notes";
 
@@ -10,7 +10,7 @@ export const fetchNotes = async (): Promise<Note[]> => {
   return response.json();
 };
 
-export const createNote = async (newNoteData: NoteData): Promise<Note> => {
+export const createNote = async (newNoteData: Note): Promise<Note> => {
   const response = await fetch(API_URL, {
     method: "POST",
     headers: {

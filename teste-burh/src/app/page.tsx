@@ -4,7 +4,7 @@ import NoteCard from "./components/card/NoteCard";
 import CreateNoteButton from "./components/buttons/CreateNoteButton";
 import NoteModal from "./components/modals/NoteModal";
 import CreateNoteForm from "./components/forms/CreateNoteForm";
-import { NoteData, Note } from "./types/Note";
+import { Note } from "./types/Note";
 import {
   fetchNotes,
   createNote,
@@ -32,7 +32,7 @@ export default function Home() {
     }
   };
 
-  const createNewNote = async (newNoteData: NoteData) => {
+  const createNewNote = async (newNoteData: Note) => {
     setLoading(true);
     setError("");
     try {
