@@ -97,7 +97,7 @@ export default function NoteCard({
       </div>
       <NoteModal
         isOpen={isUpdateModalOpen}
-        note={note}
+        title="Editar nota"
         formComponent={
           <UpdateNoteForm
             initialData={note}

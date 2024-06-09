@@ -160,6 +160,7 @@ export default function Home() {
       </div>
       <NoteModal
         isOpen={isModalOpen}
+        title="Criar nota"
         formComponent={
           <CreateNoteForm onSubmit={createNewNote} onClose={handleCloseModal} />
         }
