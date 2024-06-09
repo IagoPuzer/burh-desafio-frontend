@@ -3,4 +3,6 @@ export interface Note {
   title: string;
   description: string;
   done: boolean;
+  updatedAt: string;
+  createdAt: string;
 }
