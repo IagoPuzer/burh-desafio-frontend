@@ -56,17 +56,15 @@ export default function NoteCard({
     <>
       <div className="overflow-hidden rounded bg-white text-slate-500 shadow-md shadow-slate-200">
         <div className="p-6">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center gap-8 mb-4">
             <h3
-              className={`truncate mb-4 text-xl font-medium text-slate-700 ${
+              className={`truncate text-xl font-medium text-slate-700 ${
                 note.done ? "line-through" : ""
               }`}
             >
               {note.title}
             </h3>
-            <span className="text-slate-700">
-              Criado em : {formatDate(note.createdAt)}
-            </span>
+            <p className="text-slate-700">{formatDate(note.createdAt)}</p>
           </div>
           <p className={`truncate ${note.done ? "line-through" : ""}`}>
             {note.description}
