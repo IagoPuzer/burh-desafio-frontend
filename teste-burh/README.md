@@ -7,7 +7,7 @@
 
 ## 📌 Por que a escolha do NextJs?
 
-<p> O NextJs é um framework de desenvolvimento web que permite criar aplicações web rápidas e fáceis de serem mantidas. Ele é baseado em React e possui uma sintaxe de componentes simples e intuitiva. O NextJs é uma escolha popular para desenvolvedores que buscam criar aplicações web rápidas e fáceis de serem mantidas. </p>
+<p> O NextJs é um framework de desenvolvimento web que permite criar aplicações web rápidas e fáceis de serem mantidas. Ele é baseado em React e possui uma sintaxe de componentes simples e intuitiva. </p>
 
 <p> O desafio proposto se dava na criação de um CRUD usando a API crudcrud. A ideia de utilizar o NextJs e criar minha própria API para que eu possa consumir as informações do banco de dados se deu por conta da limitação do número de requisições que a API crudcrud permite dentro de um período de tempo. </p>
 
