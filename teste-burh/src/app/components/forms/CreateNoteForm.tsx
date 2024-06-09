@@ -27,9 +27,10 @@ export default function CreateNoteForm({
   ) => {
     const { name, value } = e.target;
     setNewNoteData({ ...newNoteData, [name]: value });
+    if (error) setError(""); // Limpa o erro ao começar a digitar novamente
   };
 
-  const createNewNote = (e: React.FormEvent<HTMLFormElement>) => {
+  const createNewNote = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!newNoteData.title.trim() || !newNoteData.description.trim()) {
@@ -38,7 +39,7 @@ export default function CreateNoteForm({
     }
 
     try {
-      onSubmit(newNoteData);
+      await onSubmit(newNoteData);
       setNewNoteData({ title: "", description: "" });
       onClose();
       toast.success("Nota criada com sucesso");
@@ -49,8 +50,11 @@ export default function CreateNoteForm({
 
   return (
     <form className="bg-gray-100 p-4 rounded mb-8" onSubmit={createNewNote}>
-      <label className="text-slate-700">Titulo:</label>
+      <label htmlFor="title" className="text-slate-700">
+        Título:
+      </label>
       <input
+        id="title"
         type="text"
         name="title"
         placeholder="Title"
@@ -58,15 +62,22 @@ export default function CreateNoteForm({
         value={newNoteData.title}
         onChange={handleChange}
       />
-      <label className="text-slate-700">Descrição:</label>
+      <label htmlFor="description" className="text-slate-700">
+        Descrição:
+      </label>
       <textarea
+        id="description"
         name="description"
         placeholder="Description"
         className="text-black block w-full h-40 border border-gray-300 rounded mb-2 p-2 bg-white focus:outline-none"
         value={newNoteData.description}
         onChange={handleChange}
       />
-      {error && <p className="text-red-500 p-4">{error}</p>}
+      {error && (
+        <p className="text-red-500 p-4" role="alert">
+          {error}
+        </p>
+      )}
       <div className="flex justify-center mt-4 gap-4">
         <button
           type="submit"
@@ -75,6 +86,7 @@ export default function CreateNoteForm({
           Criar
         </button>
         <button
+          type="button"
           onClick={onClose}
           className="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded"
         >
