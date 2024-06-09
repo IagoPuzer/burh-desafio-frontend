@@ -7,7 +7,7 @@ import "./globals.css";
 const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Notes APP",
+  title: "Tasks APP",
 };
 
 export default function RootLayout({
