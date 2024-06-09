@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { toast } from "sonner";
 import { Note } from "@/app/types/Note";
+import { useForm } from "react-hook-form";
 
 interface Props {
   onSubmit: (data: Note) => void;
@@ -13,53 +13,49 @@ export default function UpdateNoteForm({
   onClose,
   initialData,
 }: Props): JSX.Element {
-  const [noteData, setNoteData] = useState<Note>(initialData);
-  const [error, setError] = useState<string>("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Note>({ defaultValues: initialData });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setNoteData({ ...noteData, [name]: value });
-  };
-
-  const handleUpdateNote = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!noteData.title.trim() || !noteData.description.trim()) {
-      setError("Os campos de título e/ou descrição não podem estar vazios.");
-      return;
-    }
-
+  const handleUpdateNote = handleSubmit((formData: Note) => {
     try {
-      onSubmit(noteData);
+      onSubmit(formData);
       onClose();
       toast.success("Nota editada com sucesso");
     } catch (error) {
       console.error("Error creating note:", error);
     }
-  };
+  });
 
   return (
     <form className="bg-gray-100 p-4 rounded mb-8 " onSubmit={handleUpdateNote}>
       <label className="text-slate-700">Titulo:</label>
       <input
         type="text"
-        name="title"
+        {...register("title", { required: true })}
         placeholder="Title"
-        className="block w-full border border-gray-300 rounded mb-2 p-2 text-black bg-white focus:outline-none"
-        value={noteData.title}
-        onChange={handleChange}
+        className={`block w-full border border-gray-300 rounded mb-2 p-2 text-black bg-white focus:outline-none ${
+          errors.title && "border-red-500"
+        }`}
       />
+      {errors.title && (
+        <p className="text-red-500 p-4">Este campo é obrigatório</p>
+      )}
+
       <label className="text-slate-700">Descrição:</label>
       <textarea
-        name="description"
+        {...register("description", { required: true })}
         placeholder="Description"
-        className="text-black block w-full border border-gray-300 rounded mb-2 p-2 bg-white focus:outline-none h-40"
-        value={noteData.description}
-        onChange={handleChange}
+        className={`text-black block w-full border border-gray-300 rounded mb-2 p-2 bg-white focus:outline-none h-40 ${
+          errors.description && "border-red-500"
+        }`}
       />
-      {error && <p className="text-red-500 p-4">{error}</p>}
+      {errors.description && (
+        <p className="text-red-500 p-4">Este campo é obrigatório</p>
+      )}
+
       <div className="flex justify-center mt-4 gap-4">
         <button
           type="submit"

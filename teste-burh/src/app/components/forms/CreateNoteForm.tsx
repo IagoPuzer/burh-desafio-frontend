@@ -1,7 +1,6 @@
-"use client";
-import { useState } from "react";
 import { toast } from "sonner";
 import { NoteData } from "@/app/types/Note";
+import { useForm } from "react-hook-form";
 
 interface Props {
   onSubmit: (data: NoteData) => void;
@@ -12,37 +11,21 @@ export default function CreateNoteForm({
   onSubmit,
   onClose,
 }: Props): JSX.Element {
-  const [newNoteData, setNewNoteData] = useState<NoteData>({
-    title: "",
-    description: "",
-  });
-  const [error, setError] = useState<string>("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<NoteData>();
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setNewNoteData({ ...newNoteData, [name]: value });
-    if (error) setError("");
-  };
-
-  const createNewNote = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!newNoteData.title.trim() || !newNoteData.description.trim()) {
-      setError("Os campos de título e/ou descrição não podem estar vazios.");
-      return;
-    }
-
+  const createNewNote = handleSubmit(async (formData: NoteData) => {
     try {
-      await onSubmit(newNoteData);
-      setNewNoteData({ title: "", description: "" });
+      await onSubmit(formData);
       onClose();
       toast.success("Nota criada com sucesso");
     } catch (error) {
       console.error("Error creating note:", error);
     }
-  };
+  });
 
   return (
     <form className="bg-gray-100 p-4 rounded mb-8" onSubmit={createNewNote}>
@@ -52,28 +35,35 @@ export default function CreateNoteForm({
       <input
         id="title"
         type="text"
-        name="title"
+        {...register("title", { required: true })}
         placeholder="Title"
-        className="block w-full border border-gray-300 rounded mb-2 p-2 text-black bg-white focus:outline-none"
-        value={newNoteData.title}
-        onChange={handleChange}
+        className={`block w-full border border-gray-300 rounded mb-2 p-2 text-black bg-white focus:outline-none ${
+          errors.title && "border-red-500"
+        }`}
       />
+      {errors.title && (
+        <p className="text-red-500 p-4" role="alert">
+          Este campo é obrigatório
+        </p>
+      )}
+
       <label htmlFor="description" className="text-slate-700">
         Descrição:
       </label>
       <textarea
         id="description"
-        name="description"
+        {...register("description", { required: true })}
         placeholder="Description"
-        className="text-black block w-full h-40 border border-gray-300 rounded mb-2 p-2 bg-white focus:outline-none"
-        value={newNoteData.description}
-        onChange={handleChange}
+        className={`text-black block w-full h-40 border border-gray-300 rounded mb-2 p-2 bg-white focus:outline-none ${
+          errors.description && "border-red-500"
+        }`}
       />
-      {error && (
+      {errors.description && (
         <p className="text-red-500 p-4" role="alert">
-          {error}
+          Este campo é obrigatório
         </p>
       )}
+
       <div className="flex justify-center mt-4 gap-4">
         <button
           type="submit"
