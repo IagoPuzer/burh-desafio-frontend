@@ -21,9 +21,9 @@ export default function CreateNoteForm({
     try {
       await onSubmit(formData);
       onClose();
-      toast.success("Nota criada com sucesso");
+      toast.success("Task criada com sucesso");
     } catch (error) {
-      console.error("Error creating note:", error);
+      console.error("Error creating task:", error);
     }
   });
 

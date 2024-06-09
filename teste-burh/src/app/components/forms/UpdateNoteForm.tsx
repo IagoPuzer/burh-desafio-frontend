@@ -23,7 +23,7 @@ export default function UpdateNoteForm({
     try {
       onSubmit(formData);
       onClose();
-      toast.success("Nota editada com sucesso");
+      toast.success("task editada com sucesso");
     } catch (error) {
       console.error("Error creating note:", error);
     }

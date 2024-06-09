@@ -23,7 +23,7 @@ export default function NoteCard({
 
   const handleDeleteClick = () => {
     onDelete(note.id);
-    toast.error("Nota excluída");
+    toast.error("task excluída");
   };
 
   const handleUpdateClick = () => {
@@ -91,7 +91,7 @@ export default function NoteCard({
       </div>
       <NoteModal
         isOpen={isUpdateModalOpen}
-        title="Editar nota"
+        title="Editar task"
         formComponent={
           <UpdateNoteForm
             initialData={note}

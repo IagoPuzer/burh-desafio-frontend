@@ -21,7 +21,7 @@ export default function Home() {
       const data = await fetchNotes();
       setNotes(data);
     } catch (error) {
-      console.error("Error fetching notes:", error);
+      console.error("Error fetching tasks:", error);
     }
   };
 
@@ -31,7 +31,7 @@ export default function Home() {
       setNotes([...notes, newNote]);
       setIsModalOpen(false);
     } catch (error) {
-      console.error("Error creating note:", error);
+      console.error("Error creating task:", error);
     }
   };
 
@@ -40,7 +40,7 @@ export default function Home() {
       await deleteNote(noteId);
       setNotes(notes.filter((note) => note.id !== noteId));
     } catch (error) {
-      console.error("Error deleting note:", error);
+      console.error("Error deleting task:", error);
     }
   };
 
@@ -121,7 +121,7 @@ export default function Home() {
       </div>
       <NoteModal
         isOpen={isModalOpen}
-        title="Criar nota"
+        title="Criar task"
         formComponent={
           <CreateNoteForm onSubmit={createNewNote} onClose={handleCloseModal} />
         }
